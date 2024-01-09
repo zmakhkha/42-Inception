@@ -1,0 +1,6 @@
+services:
+  nginx:
+    build: ./srcs/requirements/nginx
+    image: nginx:v1.0
+    ports:
+      - '8000:443'
