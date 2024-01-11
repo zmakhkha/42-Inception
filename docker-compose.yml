@@ -1,6 +1,11 @@
 services:
-  nginx:
-    build: ./srcs/requirements/nginx
-    image: nginx:v1.0
+  #nginx:
+  #  build: ./srcs/requirements/nginx
+  #  image: nginx:v1.0
+  #  ports:
+  #    - '8000:443'
+  mariadb:
+    build: srcs/requirements/mariadb
+    image: maria:v1.0
     ports:
-      - '8000:443'
+      - '3306:3306'
