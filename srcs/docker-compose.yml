@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  nginx:
+    build: ./requirements/nginx
+    image: nginx:v1.0
+    container_name: nginx
+    ports:
+      - '2400:443'
+    volumes:
+      - wordpress_data:/var/www
+      - ./requirements/nginx/conf:/etc/nginx/conf.d
+    networks:
+      - wp_network
+    depends_on : 
+      - wordpress
+    restart: always
+
+
+  wordpress:
+    build: ./requirements/wordpress
+    image: wordpress:v1.0
+    container_name: wordpress
+    #depends_on:
+      #- mariadb
+    volumes:
+      - wordpress_data:/var/www
+    networks:
+      - wp_network
+    ports:
+      - '9000:9000'
+    environment:
+      WORDPRESS_DB_HOST: mariadb
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: password
+
+  mariadb:
+    build: ./requirements/mariadb
+    image: mariadb:v1.0
+    container_name: mariadb
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - wp_network
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: password
+
+volumes:
+  db_data:
+  wordpress_data:
+
+networks:
+  wp_network:
+    driver: bridge

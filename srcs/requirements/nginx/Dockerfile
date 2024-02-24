@@ -11,13 +11,12 @@ RUN bash /app/mks-cert.sh
 RUN chmod 644 /etc/nginx/zmakhkha.crt
 RUN chmod 600 /etc/nginx/zmakhkha.key
 
-
 COPY conf/ngnix.conf /etc/nginx/nginx.conf
 RUN chmod 644 /etc/nginx/nginx.conf
 
-
-COPY tools/index.html  /usr/share/nginx/html/index.html
-
+RUN mkdir -p /usr/share/nginx
+WORKDIR /usr/share/nginx
+RUN echo 'zmakhkha.42.fr' >> /etc/hosts.local
 
 EXPOSE 443
 
