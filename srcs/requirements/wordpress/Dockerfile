@@ -15,6 +15,8 @@ RUN touch wp-config.php
 RUN sed -i "s|listen = /run/php/php8.2-fpm.sock|listen = 9000|g" /etc/php/8.2/fpm/pool.d/www.conf;
 RUN chown www-data:www-data /var/www -R
 RUN mkdir -p /run/php/
+WORKDIR /var/www/wordpress
 COPY ./tools/script.sh .
 RUN chmod +x script.sh && ./script.sh
+RUN echo "<?php phpinfo(); ?>" >> /var/www/info.php
 CMD ["/usr/sbin/php-fpm8.2", "-F"]

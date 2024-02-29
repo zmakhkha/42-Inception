@@ -15,8 +15,11 @@ COPY conf/ngnix.conf /etc/nginx/nginx.conf
 RUN chmod 644 /etc/nginx/nginx.conf
 
 RUN mkdir -p /usr/share/nginx
-WORKDIR /usr/share/nginx
-RUN echo 'zmakhkha.42.fr' >> /etc/hosts.local
+WORKDIR /app
+#COPY tools/wp-conf.sh /app/wp-conf.sh
+#RUN chmod 644 /app/wp-conf.sh
+
+
 
 EXPOSE 443
 

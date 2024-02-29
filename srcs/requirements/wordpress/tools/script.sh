@@ -1,19 +1,28 @@
-#!/bin/sh
-cat << EOF > /var/www/wp-config.php
+#!/bin/bash
+
+# Database Configuration
+DB_NAME="wordpress"
+DB_USER="wordpress"
+DB_PASSWORD="wordpress"
+DB_HOST="127.0.0.1"
+
+# Create wp-config.php
+cat <<EOF > wp-config.php
 <?php
-define( 'DB_NAME', '$MYSQL_DATABASE' );
-define( 'DB_USER', '$MYSQL_USER' );
-define( 'DB_PASSWORD', '$MYSQL_PASSWORD' );
-define( 'DB_HOST', 'mariadb' );
-define( 'DB_CHARSET', 'utf8' );
-define( 'DB_COLLATE', '' );
-define('FS_METHOD','direct');
+define( 'DB_NAME', '$DB_NAME' );
+define( 'DB_USER', '$DB_USER' );
+define( 'DB_PASSWORD', '$DB_PASSWORD' );
+define( 'DB_HOST', '$DB_HOST' );
+
 \$table_prefix = 'wp_';
+
 define( 'WP_DEBUG', false );
-define( 'WP_REDIS_HOST', 'redis' );
-define( 'WP_REDIS_PORT', 6379 );
-define( 'WP_CACHE', true );
+
 if ( ! defined( 'ABSPATH' ) ) {
-define( 'ABSPATH', __DIR__ . '/' );}
+    define( 'ABSPATH', __DIR__ . '/' );
+}
+
 require_once ABSPATH . 'wp-settings.php';
 EOF
+
+echo "wp-config.php generated successfully!"

@@ -17,3 +17,4 @@ start :
 
 stat : 
 	@docker ps
+re : down build up
