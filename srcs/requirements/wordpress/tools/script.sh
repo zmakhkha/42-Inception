@@ -4,7 +4,7 @@
 DB_NAME="wordpress"
 DB_USER="wordpress"
 DB_PASSWORD="wordpress"
-DB_HOST="127.0.0.1"
+DB_HOST="mariadb:3306"
 
 # Create wp-config.php
 cat <<EOF > wp-config.php
@@ -24,5 +24,3 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once ABSPATH . 'wp-settings.php';
 EOF
-
-echo "wp-config.php generated successfully!"

@@ -10,11 +10,11 @@ RUN chmod -R 777 /var/run/mysqld
 WORKDIR  /var/run/mysqld
 
 
-#RUN  sed -i "s|127.0.0.1|0.0.0.0|g" /etc/mysql/mariadb.conf.d/50-server.cnf
+RUN  sed -i "s|127.0.0.1|0.0.0.0|g" /etc/mysql/mariadb.conf.d/50-server.cnf
 
 COPY ./tools/script.sh .
 RUN chmod +x script.sh
-RUN sh script.sh
+# RUN sh script.sh
 EXPOSE 3306
-CMD ["mysqld", "--user=mysql"]
-#CMD ["sh", "script.sh"]
+# CMD ["mysqld", "--user=mysql"]
+CMD ["bash", "./script.sh"]

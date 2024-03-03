@@ -7,3 +7,4 @@ mysql -u root -e "CREATE DATABASE IF NOT EXISTS wordpress; GRANT ALL ON wordpres
 sudo mysql -u root -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('wordpress');"
 mysql -u root -e "FLUSH PRIVILEGES;"
 mysqladmin shutdown -pwordpress
+exec mysqld --user=mysql
