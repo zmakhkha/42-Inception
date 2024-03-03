@@ -1,5 +1,4 @@
 version: '3.8'
-
 services:
   nginx:
     build: ./requirements/nginx
@@ -30,10 +29,10 @@ services:
     ports:
       - '9000:9000'
     environment:
-      WORDPRESS_DB_HOST: "mariadb:3306"
-      WORDPRESS_DB_NAME: wordpress
-      WORDPRESS_DB_USER: wordpress
-      WORDPRESS_DB_PASSWORD: wordpress
+      _MDB_NAME: "${MDB_NAME}"
+      _MDB_USER: "${MDB_USER}"
+      _MDB_PASS: "${MDB_PASS}"
+      _MDB_HOST: "${MDB_HOST}"
 
   mariadb:
     build: ./requirements/mariadb
@@ -46,10 +45,9 @@ services:
     networks:
       - wp_network
     environment:
-      MYSQL_ROOT_PASSWORD: wordpress
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: wordpress
+      _MDB_NAME: "${MDB_NAME}"
+      _MDB_USER: "${MDB_USER}"
+      _MDB_PASS: "${MDB_PASS}"
 
 volumes:
   db_data:

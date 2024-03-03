@@ -1,17 +1,16 @@
 #!/bin/bash
 
-# Database Configuration
-DB_NAME="wordpress"
-DB_USER="wordpress"
-DB_PASSWORD="wordpress"
-DB_HOST="mariadb:3306"
+DB_HOST=$_MDB_HOST
+DB_NAME=$_MDB_NAME
+DB_USER=$_MDB_USER
+DB_PASS=$_MDB_PASS
 
-# Create wp-config.php
+
 cat <<EOF > wp-config.php
 <?php
 define( 'DB_NAME', '$DB_NAME' );
 define( 'DB_USER', '$DB_USER' );
-define( 'DB_PASSWORD', '$DB_PASSWORD' );
+define( 'DB_PASSWORD', '$DB_PASS' );
 define( 'DB_HOST', '$DB_HOST' );
 
 \$table_prefix = 'wp_';
@@ -24,3 +23,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once ABSPATH . 'wp-settings.php';
 EOF
+
+/usr/sbin/php-fpm8.2 -F

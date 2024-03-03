@@ -17,6 +17,5 @@ RUN chown www-data:www-data /var/www -R
 RUN mkdir -p /run/php/
 WORKDIR /var/www/wordpress
 COPY ./tools/script.sh .
-RUN chmod +x script.sh && ./script.sh
-RUN echo "<?php phpinfo(); ?>" >> /var/www/info.php
-CMD ["/usr/sbin/php-fpm8.2", "-F"]
+RUN chmod +x script.sh
+CMD ["bash", "./script.sh"]
