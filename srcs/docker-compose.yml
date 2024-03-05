@@ -26,20 +26,24 @@ services:
       - wordpress_data:/var/www
     networks:
       - wp_network
-    ports:
-      - '9000:9000'
     environment:
       _MDB_NAME: "${MDB_NAME}"
       _MDB_USER: "${MDB_USER}"
       _MDB_PASS: "${MDB_PASS}"
       _MDB_HOST: "${MDB_HOST}"
+      _WP_TITLE: "${WP_TITLE}"
+      _WP_PREF: "${WP_PREF}"
+      _WP_SU_USR: "${WP_SU_USR}"
+      _WP_SU_PWD: "${WP_SU_PWD}"
+      _WP_SU_EMAIL: "${WP_SU_EMAIL}"
+      _WP_USER: "${WP_USER}"
+      _WP_MAIL: "${WP_MAIL}"
+      _WP_SEC: "${WP_SEC}"
 
   mariadb:
     build: ./requirements/mariadb
     image: mariadb:v1.0
     container_name: mariadb
-    ports:
-      - '3306:3306'
     volumes:
       - db_data:/var/lib/mysql
     networks:
