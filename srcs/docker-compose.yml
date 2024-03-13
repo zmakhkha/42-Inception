@@ -1,19 +1,20 @@
-version: '3.8'
+version: '3.0'
 services:
   nginx:
     build: ./requirements/nginx
     image: nginx:v1.0
     container_name: nginx
     ports:
-      - '2400:443'
+      - 443:443
     volumes:
       - wordpress_data:/var/www
-      - ./requirements/nginx/conf:/etc/nginx/conf.d
     networks:
       - wp_network
     depends_on : 
       - wordpress
     restart: always
+    env_file:
+      - .env
 
 
   wordpress:
@@ -26,19 +27,10 @@ services:
       - wordpress_data:/var/www
     networks:
       - wp_network
-    environment:
-      _MDB_NAME: "${MDB_NAME}"
-      _MDB_USER: "${MDB_USER}"
-      _MDB_PASS: "${MDB_PASS}"
-      _MDB_HOST: "${MDB_HOST}"
-      _WP_TITLE: "${WP_TITLE}"
-      _WP_PREF: "${WP_PREF}"
-      _WP_SU_USR: "${WP_SU_USR}"
-      _WP_SU_PWD: "${WP_SU_PWD}"
-      _WP_SU_EMAIL: "${WP_SU_EMAIL}"
-      _WP_USER: "${WP_USER}"
-      _WP_MAIL: "${WP_MAIL}"
-      _WP_SEC: "${WP_SEC}"
+    env_file:
+      - .env
+    restart: always
+
 
   mariadb:
     build: ./requirements/mariadb
@@ -48,10 +40,9 @@ services:
       - db_data:/var/lib/mysql
     networks:
       - wp_network
-    environment:
-      _MDB_NAME: "${MDB_NAME}"
-      _MDB_USER: "${MDB_USER}"
-      _MDB_PASS: "${MDB_PASS}"
+    env_file:
+      - .env
+    restart: always
 
 volumes:
   db_data:

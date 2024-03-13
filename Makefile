@@ -17,6 +17,15 @@ stop :
 start : 
 	@docker-compose -f srcs/docker-compose.yml start
 
+rmi : 
+	@docker rmi $(docker images)
+
+rmv:
+	@docker volume rm $(docker volume ls)
+
+prune:
+	docker system prune
+
 stat : 
 	@docker ps
-re : down build up
+re : down  rmv prune build up

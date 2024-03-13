@@ -1,27 +1,11 @@
 #!/bin/bash
 
-DB_HOST=$_MDB_HOST
-DB_NAME=$_MDB_NAME
-DB_USER=$_MDB_USER
-DB_PASS=$_MDB_PASS
+wp core download --allow-root
 
+wp config create --dbname=$MDB_NAME --dbuser=$MDB_USER --dbpass=$MDB_PASS --dbhost=$MDB_HOST --allow-root
+chmod 777 wp-config.php
+# wp db create --allow-root
+wp core install --url="$URL" --title="$WP_TITLE" --admin_user="$WP_SU_USR" --admin_password="$WP_SU_PWD" --admin_email="$WP_SU_EMAIL" --allow-root
+wp user create "$WP_USER" "$WP_MAIL" --user_pass="$WP_SEC" --role="$USER_ROLE" --allow-root
 
-cat <<EOF > wp-config.php
-<?php
-define( 'DB_NAME', '$DB_NAME' );
-define( 'DB_USER', '$DB_USER' );
-define( 'DB_PASSWORD', '$DB_PASS' );
-define( 'DB_HOST', '$DB_HOST' );
-
-\$table_prefix = 'wp_';
-
-define( 'WP_DEBUG', false );
-
-if ( ! defined( 'ABSPATH' ) ) {
-    define( 'ABSPATH', __DIR__ . '/' );
-}
-
-require_once ABSPATH . 'wp-settings.php';
-EOF
-
-/usr/sbin/php-fpm8.2 -F
+/usr/sbin/php-fpm7.4 -F
