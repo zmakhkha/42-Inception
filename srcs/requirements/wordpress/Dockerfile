@@ -1,11 +1,9 @@
-
 FROM    debian:oldstable
 
 WORKDIR /var/www
-RUN     rm -rf *
 
 RUN     apt update -y && apt upgrade -y
-RUN     apt install -y curl php-fpm php-mysql  php-redis redis
+RUN     apt install -y curl php-fpm php-mysql
 
 RUN     curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
         && chmod +x wp-cli.phar \

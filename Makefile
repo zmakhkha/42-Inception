@@ -7,7 +7,6 @@ down :
 	@docker-compose -f srcs/docker-compose.yml down
 	@docker volume prune -f
 
-
 build : 
 	@docker-compose -f srcs/docker-compose.yml build
 
