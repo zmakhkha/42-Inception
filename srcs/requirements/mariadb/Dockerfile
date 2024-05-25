@@ -6,7 +6,7 @@ RUN		apt-get update && apt-get upgrade -y \
 RUN		mkdir -p /var/run/mysqld && \
 chown -R mysql /var/run/mysqld && \
 chmod -R 777 /var/run/mysqld
-WORKDIR		/var/run/mysqld
+
 
 RUN		sed -i "s|127.0.0.1|0.0.0.0|g" /etc/mysql/mariadb.conf.d/50-server.cnf
 
