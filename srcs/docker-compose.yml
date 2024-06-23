@@ -1,52 +1,64 @@
 version: '3.0'
 services:
-  nginx:
-    build: ./requirements/nginx
-    image: nginx:v1.0
-    container_name: nginx
-    ports:
-      - 443:443
-    volumes:
-      - wordpress_data:/var/www
-    networks:
-      - wp_network
-    depends_on : 
-      - wordpress
-    restart: always
-    env_file:
-      - .env
+  # nginx:
+  #   build: ./requirements/nginx
+  #   image: nginx:v1.0
+  #   container_name: nginx
+  #   ports:
+  #     - 443:443
+  #   volumes:
+  #     - wordpress_data:/var/www
+  #   networks:
+  #     - wp_network
+  #   depends_on : 
+  #     - wordpress
+  #   restart: always
+  #   env_file:
+  #     - .env
 
 
-  wordpress:
-    build: ./requirements/wordpress
-    image: wordpress:v1.0
-    container_name: wordpress
-    depends_on:
-      - mariadb
-    volumes:
-      - wordpress_data:/var/www
-    networks:
-      - wp_network
-    env_file:
-      - .env
-    restart: always
+  # wordpress:
+  #   build: ./requirements/wordpress
+  #   image: wordpress:v1.0
+  #   container_name: wordpress
+  #   depends_on:
+  #     - mariadb
+  #   volumes:
+  #     - wordpress_data:/var/www
+  #   networks:
+  #     - wp_network
+  #   env_file:
+  #     - .env
+  #   restart: always
 
 
-  mariadb:
-    build: ./requirements/mariadb
-    image: mariadb:v1.0
+  # mariadb:
+  #   build: ./requirements/mariadb
+  #   image: mariadb:v1.0
+  #   container_name: mariadb
+  #   volumes:
+  #     - db_data:/var/lib/mysql
+  #   networks:
+  #     - wp_network
+  #   env_file:
+  #     - .env
+  #   restart: always
+
+
+# Bonus
+  website:
+    build: ./requirements/bonus/static/
+    image: static:v1.0
     container_name: mariadb
-    volumes:
-      - db_data:/var/lib/mysql
+    ports:
+      - 90:90
     networks:
       - wp_network
-    env_file:
-      - .env
     restart: always
 
-volumes:
-  db_data:
-  wordpress_data:
+# volumes:
+#   db_data:
+#   wordpress_data:
 
 networks:
   wp_network:
