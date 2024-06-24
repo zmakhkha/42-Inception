@@ -1,60 +1,60 @@
 version: '3.0'
 services:
-  # nginx:
-  #   container_name: nginx
-  #   build: ./requirements/nginx
-  #   image: nginx:v1.0
-  #   ports:
-  #     - 443:443
-  #   volumes:
-  #     - wordpress_data:/var/www
-  #   networks:
-  #     - wp_network
-  #   depends_on : 
-  #     - wordpress
-  #   restart: always
-  #   env_file:
-  #     - .env
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx
+    image: nginx:v1.0
+    ports:
+      - 443:443
+    volumes:
+      - wordpress_data:/var/www
+    networks:
+      - wp_network
+    depends_on : 
+      - wordpress
+    restart: always
+    env_file:
+      - .env
 
 
-  # wordpress:
-  #   container_name: wordpress
-  #   build: ./requirements/wordpress
-  #   image: wordpress:v1.0
-  #   depends_on:
-  #     - mariadb
-  #   volumes:
-  #     - wordpress_data:/var/www
-  #   networks:
-  #     - wp_network
-  #   env_file:
-  #     - .env
-  #   restart: always
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress
+    image: wordpress:v1.0
+    depends_on:
+      - mariadb
+    volumes:
+      - wordpress_data:/var/www
+    networks:
+      - wp_network
+    env_file:
+      - .env
+    restart: always
 
 
-  # mariadb:
-  #   container_name: mariadb
-  #   build: ./requirements/mariadb
-  #   image: mariadb:v1.0
-  #   volumes:
-  #     - db_data:/var/lib/mysql
-  #   networks:
-  #     - wp_network
-  #   env_file:
-  #     - .env
-  #   restart: always
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb
+    image: mariadb:v1.0
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - wp_network
+    env_file:
+      - .env
+    restart: always
 
 
 # Bonus
-  # website:
-  #   build: ./requirements/bonus/static/
-  #   image: static:v1.0
-  #   container_name: static
-  #   ports:
-  #     - 2100:2100
-  #   networks:
-  #     - wp_network
-  #   restart: always
+  website:
+    build: ./requirements/bonus/static/
+    image: static:v1.0
+    container_name: static
+    ports:
+      - 2100:2100
+    networks:
+      - wp_network
+    restart: always
   adminer:
     container_name: adminer
     build: ./requirements/bonus/adminer/
@@ -70,7 +70,7 @@ services:
   portainer:
     container_name: portainer
     build: ./requirements/bonus/portainer/
-    image: portainer:inception
+    image: portainer:v1.0
     ports:
       - 2300:9443
     volumes:
@@ -78,10 +78,26 @@ services:
     networks:
       - wp_network
     restart: always
+  
+  ftp:
+    # container_name: ftp
+    build: ./requirements/bonus/ftp/
+    image: ftp:v1.0
+    depends_on:
+      - wordpress
+    volumes:
+      - wordpress_data:/var/www
+    env_file:
+      - .env
+    ports:
+      - "2400:21"
+    networks:
+      - wp_network
+    restart: always
 
-# volumes:
-#   db_data:
-#   wordpress_data:
+volumes:
+  db_data:
+  wordpress_data:
 
 networks:
   wp_network:
