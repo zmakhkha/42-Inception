@@ -1,9 +1,9 @@
 version: '3.0'
 services:
   # nginx:
+  #   container_name: nginx
   #   build: ./requirements/nginx
   #   image: nginx:v1.0
-  #   container_name: nginx
   #   ports:
   #     - 443:443
   #   volumes:
@@ -18,9 +18,9 @@ services:
 
 
   # wordpress:
+  #   container_name: wordpress
   #   build: ./requirements/wordpress
   #   image: wordpress:v1.0
-  #   container_name: wordpress
   #   depends_on:
   #     - mariadb
   #   volumes:
@@ -33,9 +33,9 @@ services:
 
 
   # mariadb:
+  #   container_name: mariadb
   #   build: ./requirements/mariadb
   #   image: mariadb:v1.0
-  #   container_name: mariadb
   #   volumes:
   #     - db_data:/var/lib/mysql
   #   networks:
@@ -56,13 +56,25 @@ services:
   #     - wp_network
   #   restart: always
   adminer:
+    container_name: adminer
     build: ./requirements/bonus/adminer/
     image: adminer:v1.0
     # volumes:
     #   - db_data:/var/lib/mysql
-    container_name: adminer
     ports:
       - 2200:2200
+    networks:
+      - wp_network
+    restart: always
+
+  portainer:
+    container_name: portainer
+    build: ./requirements/bonus/portainer/
+    image: portainer:inception
+    ports:
+      - 2300:9443
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
     networks:
       - wp_network
     restart: always
