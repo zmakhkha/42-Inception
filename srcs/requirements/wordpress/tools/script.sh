@@ -8,4 +8,16 @@ wp core install --url="$URL" --title="$WP_TITLE" --admin_user="$WP_SU_USR" --adm
 wp user create "$WP_USER" "$WP_MAIL" --user_pass="$WP_SEC" --role="$USER_ROLE" --allow-root
 wp theme install $WP_THEME --activate --allow-root
 
+
+
+wp plugin update --all --allow-root
+
+wp plugin install redis-cache --activate --allow-root
+
+wp config set WP_REDIS_HOST redis --allow-root
+
+wp config set WP_REDIS_PORT 6379 --raw --allow-root
+
+wp redis enable --allow-root
+
 /usr/sbin/php-fpm7.4 -F
