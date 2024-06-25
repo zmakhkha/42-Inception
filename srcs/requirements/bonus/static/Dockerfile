@@ -11,5 +11,5 @@ COPY	/conf/nginx.conf .
 WORKDIR /var/www
 # RUN rm -rf *
 COPY conf/index.html .
-EXPOSE	80
+EXPOSE	2100
 CMD		["nginx", "-g", "daemon off;"]
