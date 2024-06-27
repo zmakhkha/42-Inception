@@ -10,6 +10,7 @@ chmod -R 777 /var/run/mysqld
 
 RUN		sed -i "s|127.0.0.1|0.0.0.0|g" /etc/mysql/mariadb.conf.d/50-server.cnf
 
-COPY	./tools/script.sh .
-RUN		chmod +x script.sh
-CMD		["bash", "./script.sh"]
+COPY ./tools/script.sh /usr/script.sh
+RUN chmod +x /usr/script.sh
+
+CMD ["/usr/script.sh"]
