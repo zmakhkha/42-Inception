@@ -45,7 +45,7 @@ services:
     restart: always
 
 
-# # Bonus
+# Bonus
   website:
     build: ./requirements/bonus/static/
     image: static:v1.0
@@ -81,7 +81,7 @@ services:
     restart: always
   
   ftp:
-    # container_name: ftp
+    container_name: ftp
     build: ./requirements/bonus/ftp/
     image: ftp:v1.0
     depends_on:
@@ -91,8 +91,8 @@ services:
     env_file:
       - .env
     ports:
-      - "2400:21"
-      - "40000-40005:40000-40005"
+      - "21:21"
+      - "20:20"
     networks:
       - wp_network
     restart: always
@@ -108,8 +108,6 @@ services:
     networks:
       - wp_network
     restart: always
-
-
 
 networks:
   wp_network:
