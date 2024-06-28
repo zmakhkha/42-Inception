@@ -7,7 +7,7 @@ services:
     ports:
       - 443:443
     volumes:
-      - /home/zmakhkha/data/wp:/var/www
+      - wp_data:/var/www
     networks:
       - wp_network
     depends_on : 
@@ -24,7 +24,7 @@ services:
     depends_on:
       - mariadb
     volumes:
-      - /home/zmakhkha/data/wp:/var/www
+      - wp_data:/var/www
     networks:
       - wp_network
     env_file:
@@ -37,7 +37,7 @@ services:
     build: ./requirements/mariadb
     image: mariadb:v1.0
     volumes:
-      - /home/zmakhkha/data/mdb:/var/lib/mysql
+      - mdb_data:/var/lib/mysql
     networks:
       - wp_network
     env_file:
@@ -60,8 +60,6 @@ services:
     container_name: adminer
     build: ./requirements/bonus/adminer/
     image: adminer:v1.0
-    volumes:
-      - /home/zmakhkha/data/mdb:/var/lib/mysql
     ports:
       - 2200:2200
     networks:
@@ -87,7 +85,7 @@ services:
     depends_on:
       - wordpress
     volumes:
-      - /home/zmakhkha/data/wp:/var/www
+      - wp_data:/var/www
     env_file:
       - .env
     ports:
@@ -104,7 +102,7 @@ services:
     ports:
       - 6379:6379
     volumes:
-      - /home/zmakhkha/data/wp:/var/www
+      - wp_data:/var/www
     networks:
       - wp_network
     restart: always
@@ -112,3 +110,15 @@ services:
 networks:
   wp_network:
     driver: bridge
+
+volumes:
+  wp_data:
+    driver_opts:
+      type : none
+      o : bind
+      device : /home/zmakhkha/data/wp
+  mdb_data:
+    driver_opts:
+      type : none
+      o : bind
+      device : /home/zmakhkha/data/mdb
